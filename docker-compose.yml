@@ -1,0 +1,60 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: gamegrab-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root123456
+      MYSQL_DATABASE: gamegrab
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./scripts/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - gamegrab-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: gamegrab-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - gamegrab-network
+
+  user-service:
+    build:
+      context: ./backend-services/user-service
+      dockerfile: ../../infrastructure/docker/backend.Dockerfile
+    container_name: gamegrab-user-service
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/gamegrab?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root123456
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - gamegrab-network
+
+  web-admin:
+    build:
+      context: ./web-admin
+      dockerfile: ../infrastructure/docker/web.Dockerfile
+    container_name: gamegrab-web-admin
+    ports:
+      - "3000:80"
+    depends_on:
+      - user-service
+    networks:
+      - gamegrab-network
+
+volumes:
+  mysql_data:
+
+networks:
+  gamegrab-network:
+    driver: bridge

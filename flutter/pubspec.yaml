@@ -1,0 +1,43 @@
+name: gamegrab_pro
+description: GameGrab Pro - 游戏俱乐部智能抢单助手
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+
+  # 网络请求
+  http: ^1.1.0
+
+  # 本地存储
+  shared_preferences: ^2.2.2
+
+  # 设备信息
+  device_info_plus: ^9.1.1
+
+  # UI 功能
+  flutter_overlay_window: ^0.4.3
+
+  # 权限管理
+  permission_handler: ^11.1.0
+
+  # 状态管理
+  provider: ^6.1.1
+
+  # 工具类
+  crypto: ^3.0.3
+  uuid: ^4.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true

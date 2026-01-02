@@ -1,0 +1,5 @@
+linter:
+  rules:
+    avoid_print: false
+    prefer_const_constructors: true
+    prefer_const_declarations: true
