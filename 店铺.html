@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>数据号商城 - 纸飞机账号专卖</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Microsoft YaHei",sans-serif;scroll-behavior:smooth}
+body{position:relative;min-height:100vh;color:#1e293b;background:#f9fafb;transition:background .3s,color .3s}
+body::before{content:'';position:fixed;top:0;left:0;width:300%;height:300%;background:linear-gradient(135deg,#7dd3fc,#38bdf8,#0ea5e9,#0369a1,#7dd3fc);opacity:.12;z-index:-2;animation:bgSlide 22s linear infinite}
+@keyframes bgSlide{0%{transform:translate(-70%,-70%)}100%{transform:translate(0,0)}}
+body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at 20% 30%,rgba(56,189,248,0.1)0%,transparent 40%),radial-gradient(circle at 80%70%,rgba(14,165,233,0.1)0%,transparent 40%);z-index:-1;pointer-events:none}
+#particle{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.pop-tag{position:fixed;pointer-events:none;font-weight:600;z-index:9999;animation:popUp 1s ease-out forwards}
+@keyframes popUp{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-80px) scale(1.2)}}
+.notice{background:#0ea5e9;color:white;padding:8px 10px;text-align:center;overflow:hidden;white-space:nowrap}
+.notice p{display:inline-block;animation:notice 18s linear infinite}
+@keyframes notice{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
+.header{position:sticky;top:0;z-index:100;background:#0f172a;color:#fff;padding:16px 20px}
+.nav{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:24px;font-weight:700;color:#38bdf8}
+.menu{display:flex;gap:24px;align-items:center}
+.menu a{color:#cbd5e1;font-size:15px}
+.menu a:hover{color:#38bdf8}
+.theme-select{display:flex;gap:8px}
+.theme-btn{width:24px;height:24px;border-radius:50%;border:2px solid #fff;cursor:pointer}
+.theme-btn[data-theme="blue"]{background:linear-gradient(135deg,#7dd3fc,#0ea5e9)}
+.theme-btn[data-theme="orange"]{background:linear-gradient(135deg,#fed7aa,#f97316)}
+.theme-btn[data-theme="purple"]{background:linear-gradient(135deg,#ddd6fe,#8b5cf6)}
+.theme-btn[data-theme="green"]{background:linear-gradient(135deg,#a7f3d0,#10b981)}
+.banner{position:relative;background:linear-gradient(135deg,#0ea5e9,#0369a1);color:#fff;padding:90px 20px;text-align:center;overflow:hidden;transition:background .3s}
+.banner::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at 30%20%,rgba(255,255,255,0.15),transparent 55%);pointer-events:none}
+.banner h1{font-size:38px;margin-bottom:16px;position:relative}
+.banner p{max-width:680px;margin:0 auto 28px;opacity:.95;font-size:16px;line-height:1.7}
+.btns{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+.btn{display:inline-block;padding:14px 30px;background:#fff;color:#0369a1;border-radius:12px;font-weight:600;transition:all .3s;box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.btn:hover{transform:translateY(-4px);box-shadow:0 8px 20px rgba(0,0,0,0.15)}
+.btn2{background:#165DFF;color:#fff}
+.fade{opacity:0;transform:translateY(30px);transition:all .8s ease}
+.fade.show{opacity:1;transform:translateY(0)}
+.container{max-width:1100px;margin:0 auto;padding:50px 20px}
+.section-title{text-align:center;font-size:29px;margin-bottom:12px}
+.desc{text-align:center;color:#64748b;margin-bottom:45px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:26px;margin-bottom:50px}
+.card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,0.05);transition:.3s;position:relative}
+.card:hover{transform:translateY(-8px)}
+.card .img{height:190px;display:grid;place-items:center;color:#fff;font-size:17px;font-weight:600;text-shadow:0 1px 3px rgba(0,0,0,0.2);background-size:cover;background-position:center}
+.card:nth-child(1) .img{background:linear-gradient(rgba(14,165,233,0.75),rgba(14,165,233,0.75)),url('https://picsum.photos/id/1/800/600')}
+.card:nth-child(2) .img{background:linear-gradient(rgba(5,150,105,0.75),rgba(5,150,105,0.75)),url('https://picsum.photos/id/2/800/600')}
+.card:nth-child(3) .img{background:linear-gradient(rgba(79,70,229,0.75),rgba(79,70,229,0.75)),url('https://picsum.photos/id/3/800/600')}
+.card .body{padding:26px}
+.card .title{font-size:20px;font-weight:600;margin-bottom:10px}
+.card .text{color:#64748b;font-size:15px;line-height:1.6;margin-bottom:16px}
+.tag{display:inline-block;padding:6px 11px;background:#f0f9ff;color:#0369a1;border-radius:8px;font-size:12px;margin-right:6px;margin-bottom:6px}
+.features{background:#fff;padding:60px 20px;border-radius:20px;margin:40px auto;max-width:1100px;box-shadow:0 8px 24px rgba(0,0,0,0.04);transition:background .3s}
+.feature-box{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:22px}
+.feature{background:#f8fafc;padding:28px;border-radius:16px;text-align:center;transition:.2s}
+.feature:hover{transform:translateY(-4px);background:#f0f9ff}
+.feature h4{margin:12px 0 8px;font-size:17px}
+.feature p{font-size:14px;color:#64748b}
+.step{background:#fff;padding:20px 24px;border-radius:14px;margin-bottom:16px;display:flex;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,0.03);transition:background .3s}
+.step .num{width:36px;height:36px;background:linear-gradient(135deg,#0ea5e9,#38bdf8);color:#fff;border-radius:50%;display:grid;place-items:center;margin-right:18px;font-weight:600;transition:background .3s}
+.shop{background:#fff;padding:40px;border-radius:20px;text-align:center;margin:50px 0;box-shadow:0 8px 24px rgba(0,0,0,0.06);border:1px solid #e2e8f0;transition:background .3s}
+.shop h3{margin-bottom:20px;font-size:22px}
+.link{font-size:18px;color:#0ea5e9;font-weight:600;word-break:break-all;padding:10px;background:#f8fafc;border-radius:10px;transition:background .3s}
+.copy{margin-top:16px;padding:10px 20px;background:#eff6ff;border:none;border-radius:10px;color:#1d4ed8;cursor:pointer;font-weight:600;transition:.2s}
+.copy:hover{background:#dbeafe}
+.faq{margin-top:50px}
+.faq-item{border-bottom:1px solid #e2e8f0;padding:18px 0}
+.faq-q{font-weight:600;margin-bottom:8px;font-size:16px}
+.faq-a{color:#64748b;font-size:15px;line-height:1.6}
+.float-bar{position:fixed;right:20px;bottom:20px;display:flex;flex-direction:column;gap:12px;z-index:99}
+.float-btn{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;box-shadow:0 4px 12px rgba(0,0,0,0.2);cursor:pointer;transition:.2s;background:#fff}
+.float-btn:hover{transform:translateY(-4px)}
+.game-panel{position:fixed;right:80px;bottom:20px;width:300px;height:420px;background:#fff;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,0.2);display:none;flex-direction:column;overflow:hidden;z-index:98}
+.game-header{background:#0ea5e9;color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center}
+.game-body{flex:1;background:#f8fafc;display:grid;place-items:center}
+.game-canvas{touch-action:manipulation;background:#111827;border-radius:8px}
+.game-controls{padding:10px;text-align:center}
+.game-btn{padding:8px 16px;background:#0ea5e9;color:#fff;border:none;border-radius:8px;cursor:pointer}
+.poster-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);display:none;place-items:center;z-index:100}
+.poster-box{background:#fff;padding:30px;border-radius:20px;text-align:center}
+#posterCanvas{width:280px;height:400px;border-radius:12px;margin-bottom:16px;border:1px solid #e2e8f0}
+.poster-btn{padding:10px 20px;background:#0ea5e9;color:#fff;border:none;border-radius:10px;cursor:pointer;margin:0 6px}
+.player{position:fixed;left:20px;bottom:20px;background:#fff;border-radius:50px;box-shadow:0 4px 12px rgba(0,0,0,0.2);padding:10px 16px;display:flex;align-items:center;gap:12px;z-index:99}
+.player button{background:none;border:none;cursor:pointer;font-size:18px}
+.player input{width:80px}
+.back-top{width:50px;height:50px;background:linear-gradient(135deg,#0ea5e9,#38bdf8);color:#fff;border-radius:50%;display:grid;place-items:center;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.2);opacity:0;transition:.3s;z-index:99}
+.footer{background:#0f172a;color:#cbd5e1;text-align:center;padding:40px 20px;transition:background .3s}
+body.theme-blue{--primary:#0ea5e9}
+body.theme-orange{--primary:#f97316}
+body.theme-purple{--primary:#8b5cf6}
+body.theme-green{--primary:#10b981}
+body.dark{background:#111827;color:#e2e8f0}
+body.dark .card,body.dark .features,body.dark .step,body.dark .shop,body.dark .game-panel,body.dark .player{background:#1e293b;color:#e2e8f0}
+body.dark .feature{background:#273444}
+body.dark .tag{background:#273444;color:#38bdf8}
+body.dark .link{background:#273444}
+</style>
+</head>
+<body>
+<canvas id="particle"></canvas>
+<div class="notice"><p>🔥 新号稳定上架｜批量购买更优惠｜秒发秒收｜售后无忧</p></div>
+<div class="header">
+  <div class="nav">
+    <div class="logo">数据号商城</div>
+    <div class="menu">
+      <a href="#products">产品中心</a>
+      <a href="#features">服务优势</a>
+      <a href="#step">购买流程</a>
+      <a href="#shop">官方店铺</a>
+      <a href="#faq">常见问题</a>
+      <div class="theme-select">
+        <div class="theme-btn" data-theme="blue"></div>
+        <div class="theme-btn" data-theme="orange"></div>
+        <div class="theme-btn" data-theme="purple"></div>
+        <div class="theme-btn" data-theme="green"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="banner" id="banner">
+  <h1>数据号 & 纸飞机账号 专业商城</h1>
+  <p>我们专注提供高质量、高稳定性、纯净无绑的各类账号，适用于引流推广、社群运营、业务拓展、日常使用，全程售后保障，放心选购。</p>
+  <div class="btns">
+    <a href="#products" class="btn">查看产品</a>
+    <a href="#shop" class="btn btn2">直达店铺</a>
+  </div>
+</div>
+<div class="container fade" id="products">
+  <h2 class="section-title">主营产品</h2>
+  <p class="desc">所有账号均为全新注册，安全稳定，可直接使用</p>
+  <div class="grid">
+    <div class="card">
+      <div class="img">高质量数据号</div>
+      <div class="body">
+        <div class="title">高质量数据号</div>
+        <div class="text">全新注册、无异常、无封禁风险，信息纯净无绑定，可用于日常使用、业务测试、推广引流等多种场景。</div>
+        <div class="tag">稳定耐用</div><div class="tag">纯净无绑</div><div class="tag">售后保障</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="img">纸飞机 Telegram</div>
+      <div class="body">
+        <div class="title">纸飞机 Telegram 账号</div>
+        <div class="text">可正常登录、收发消息、加入群组、使用全部功能，长期稳定不掉线，适合海外业务、私密沟通、社群运营。</div>
+        <div class="tag">长期可用</div><div class="tag">秒发交付</div><div class="tag">功能完整</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="img">批量套餐账号</div>
+      <div class="body">
+        <div class="title">批量账号套餐</div>
+        <div class="text">多数量组合套餐，价格更优惠，适合工作室、团队运营，支持快速补号，长期合作更省心。</div>
+        <div class="tag">量大价优</div><div class="tag">快速交付</div><div class="tag">售后稳定</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="features fade" id="features">
+  <div class="container">
+    <h2 class="section-title">为什么选择我们</h2>
+    <p class="desc">多年行业经验，品质与服务双重保障</p>
+    <div class="feature-box">
+      <div class="feature"><h4>✅ 稳定安全</h4><p>所有账号纯净环境注册，降低异常风险</p></div>
+      <div class="feature"><h4>⚡ 秒速交付</h4><p>下单后快速发货，不拖延，高效省心</p></div>
+      <div class="feature"><h4>🛡️ 售后保障</h4><p>使用问题可协助处理，长期售后支持</p></div>
+      <div class="feature"><h4>💰 价格实惠</h4><p>批量更优惠，性价比高，适合长期使用</p></div>
+      <div class="feature"><h4>🔒 隐私保护</h4><p>所有订单严格保密，不泄露任何信息</p></div>
+      <div class="feature"><h4>🔁 免费补换</h4><p>特殊情况可享补换服务，售后更安心</p></div>
+    </div>
+  </div>
+</div>
+<div class="container fade" id="step">
+  <h2 class="section-title">购买流程</h2>
+  <p class="desc">简单三步，快速获取账号</p>
+  <div class="step"><div class="num">1</div><div>复制店铺链接，进入官方店铺</div></div>
+  <div class="step"><div class="num">2</div><div>选择需要的产品并完成下单</div></div>
+  <div class="step"><div class="num">3</div><div>自动/人工发货，直接使用</div></div>
+</div>
+<div class="container fade" id="shop">
+  <div class="shop">
+    <h3>🛍️ 官方店铺直达链接</h3>
+    <div class="link" id="shopLink">https://www.your-shop-url.com</div>
+    <p style="margin-top:12px;font-size:14px;">复制链接到浏览器打开即可购买</p>
+    <button class="copy" onclick="copyLink()">复制链接</button>
+    <button class="copy" onclick="openPoster()" style="margin-left:10px">生成分享海报</button>
+  </div>
+</div>
+<div class="container fade" id="faq">
+  <h2 class="section-title">常见问题</h2>
+  <div class="faq">
+    <div class="faq-item"><div class="faq-q">账号是否稳定？</div><div class="faq-a">我们所有账号均为纯净环境注册，正常使用非常稳定，请勿用于违规行为。</div></div>
+    <div class="faq-item"><div class="faq-q">购买后多久发货？</div><div class="faq-a">绝大多数订单秒发，高峰期可能稍有延迟，均会在短时间内完成交付。</div></div>
+    <div class="faq-item"><div class="faq-q">可以批量购买吗？</div><div class="faq-a">支持批量定制，数量越大价格越优惠，可直接在店铺咨询。</div></div>
+    <div class="faq-item"><div class="faq-q">使用有问题怎么办？</div><div class="faq-a">店铺内可直接联系客服，我们会提供力所能及的协助。</div></div>
+  </div>
+</div>
+<div class="footer">
+  <p>数据号 & 纸飞机账号商城 © 2026 版权所有</p>
+  <p style="margin-top:10px;">官方店铺：https://www.your-shop-url.com</p>
+  <p style="margin-top:8px;font-size:12px;opacity:.7">本平台仅提供合法账号服务，严禁用于任何违法违规用途</p>
+</div>
+<div class="float-bar">
+  <div class="float-btn" onclick="toggleGame()">🎮</div>
+  <div class="back-top" id="backTop" onclick="window.scrollTo(0,0)">↑</div>
+</div>
+<div class="game-panel" id="gamePanel">
+  <div class="game-header">
+    <span>数字消消乐</span>
+    <span onclick="toggleGame()">✕</span>
+  </div>
+  <div class="game-body">
+    <canvas class="game-canvas" id="game" width="260" height="280"></canvas>
+  </div>
+  <div class="game-controls">
+    <button class="game-btn" onclick="startGame()">开始游戏</button>
+  </div>
+</div>
+<div class="poster-modal" id="posterModal">
+  <div class="poster-box">
+    <canvas id="posterCanvas"></canvas>
+    <div>
+      <button class="poster-btn" onclick="downloadPoster()">下载海报</button>
+      <button class="poster-btn" onclick="closePoster()" style="background:#64748b">关闭</button>
+    </div>
+  </div>
+</div>
+<div class="player">
+  <button onclick="toggleMusic()">▶️</button>
+  <input type="range" min="0" max="1" step="0.1" value="0.5" onchange="setVolume(this.value)">
+  <span style="font-size:12px;color:#64748b">BGM</span>
+</div>
+<audio id="bgm" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+<script>
+const themeBtns=document.querySelectorAll('.theme-btn');
+const banner=document.getElementById('banner');
+const nums=document.querySelectorAll('.step .num');
+themeBtns.forEach(b=>{
+  b.addEventListener('click',()=>{
+    const t=b.dataset.theme;
+    document.body.className='';
+    document.body.classList.add(`theme-${t}`);
+    const c={blue:['#0ea5e9','#0369a1'],orange:['#f97316','#ea580c'],purple:['#8b5cf6','#7c3aed'],green:['#10b981','#059669']};
+    banner.style.background=`linear-gradient(135deg,${c[t][0]},${c[t][1]})`;
+    nums.forEach(n=>n.style.background=`linear-gradient(135deg,${c[t][0]},${c[t][1]})`);
+    localStorage.setItem('theme',t);
+  });
+});
+const savedTheme=localStorage.getItem('theme');
+if(savedTheme){
+  document.body.classList.add(`theme-${savedTheme}`);
+  const c={blue:['#0ea5e9','#0369a1'],orange:['#f97316','#ea580c'],purple:['#8b5cf6','#7c3aed'],green:['#10b981','#059669']};
+  banner.style.background=`linear-gradient(135deg,${c[savedTheme][0]},${c[savedTheme][1]})`;
+  nums.forEach(n=>n.style.background=`linear-gradient(135deg,${c[savedTheme][0]},${c[savedTheme][1]})`);
+}
+if(localStorage.getItem('dark')==='true')document.body.classList.add('dark');
+function copyLink(){navigator.clipboard.writeText(document.getElementById('shopLink').innerText);alert('复制成功');}
+window.addEventListener('scroll',()=>{document.getElementById('backTop').style.opacity=window.scrollY>300?'1':'0';});
+const fades=document.querySelectorAll('.fade');
+const obs=new IntersectionObserver(e=>{e.forEach(i=>i.target.classList.toggle('show',i.isIntersecting))});
+fades.forEach(i=>obs.observe(i));
+const canvas=document.getElementById('particle');
+const ctx=canvas.getContext('2d');
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+let particles=[];
+class Particle{constructor(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.s=Math.random()*2+1;this.vx=Math.random()*0.4-0.2;this.vy=Math.random()*0.4-0.2;}update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>canvas.width)this.vx*=-1;if(this.y<0||this.y>canvas.height)this.vy*=-1;}draw(){ctx.fillStyle='rgba(56,189,248,0.25)';ctx.beginPath();ctx.arc(this.x,this.y,this.s,0,Math.PI*2);ctx.fill();}}
+function init(){for(let i=0;i<50;i++)particles.push(new Particle());}
+function anim(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{p.update();p.draw();});requestAnimationFrame(anim);}
+init();anim();
+window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
+const tags=['稳','快','好','顺','净','稳'];
+document.addEventListener('click',e=>{const t=document.createElement('div');t.className='pop-tag';t.textContent=tags[Math.floor(Math.random()*tags.length)];t.style.left=e.pageX+'px';t.style.top=e.pageY+'px';t.style.color=`hsl(${Math.random()*360},70%,50%)`;document.body.appendChild(t);setTimeout(()=>t.remove(),900);});
+const gCanvas=document.getElementById('game');
+const gCtx=gCanvas.getContext('2d');
+let grid=[];
+let size=40;
+let cols=6,rows=7;
+let running=false;
+function drawGrid(){gCtx.clearRect(0,0,gCanvas.width,gCanvas.height);for(let y=0;y<rows;y++){for(let x=0;x<cols;x++){const val=grid[y][x];gCtx.fillStyle=val?'#0ea5e9':'#1e293b';gCtx.fillRect(x*size,y*size,size-2,size-2);}}}
+function genGrid(){grid=[];for(let y=0;y<rows;y++){grid[y]=[];for(let x=0;x<cols;x++)grid[y][x]=Math.random()>0.5;}}
+function check(){let full=true;for(let y=0;y<rows;y++)for(let x=0;x<cols;x++)if(grid[y][x]){full=false;break;}if(full){alert('恭喜通关！');running=false;}}
+function toggle(x,y){if(x<0||y<0||x>=cols||y>=rows)return;grid[y][x]=!grid[y][x];}
+function tap(x,y){if(!running)return;toggle(x,y);toggle(x+1,y);toggle(x-1,y);toggle(x,y+1);toggle(x,y-1);drawGrid();check();}
+function startGame(){genGrid();running=true;drawGrid();}
+gCanvas.addEventListener('click',e=>{const rect=gCanvas.getBoundingClientRect();const x=Math.floor((e.clientX-rect.left)/size);const y=Math.floor((e.clientY-rect.top)/size);tap(x,y);});
+gCanvas.addEventListener('touchstart',e=>{e.preventDefault();const rect=gCanvas.getBoundingClientRect();const x=Math.floor((e.touches[0].clientX-rect.left)/size);const y=Math.floor((e.touches[0].clientY-rect.top)/size);tap(x,y);});
+function toggleGame(){const p=document.getElementById('gamePanel');p.style.display=p.style.display=='flex'?'none':'flex';}
+function openPoster(){const m=document.getElementById('posterModal');m.style.display='grid';const c=document.getElementById('posterCanvas');const ctx=c.getContext('2d');c.width=280;c.height=400;ctx.fillStyle='#0ea5e9';ctx.fillRect(0,0,280,400);ctx.fillStyle='#fff';ctx.font='bold 24px sans-serif';ctx.textAlign='center';ctx.fillText('数据号商城',140,60);ctx.font='16px sans-serif';ctx.fillText('账号专卖',140,90);ctx.fillStyle='#fff';ctx.fillRect(40,120,200,200);ctx.fillStyle='#000';ctx.font='14px sans-serif';ctx.fillText('进入店铺',140,220);ctx.fillStyle='#fff';ctx.font='12px sans-serif';ctx.fillText('https://www.your-shop-url.com',140,360);}
+function closePoster(){document.getElementById('posterModal').style.display='none';}
+function downloadPoster(){const c=document.getElementById('posterCanvas');const a=document.createElement('a');a.download='poster.png';a.href=c.toDataURL();a.click();}
+const bgm=document.getElementById('bgm');
+let play=false;
+function toggleMusic(){play?bgm.pause():bgm.play();play=!play;}
+function setVolume(v){bgm.volume=v;}
+</script>
+</body>
+</html>
