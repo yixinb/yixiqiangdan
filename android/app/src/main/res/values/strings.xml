@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GameGrab Pro</string>
+    <string name="accessibility_service_description">GameGrab Pro 自动抢单服务，用于模拟点击操作实现自动抢单功能。</string>
+</resources>
